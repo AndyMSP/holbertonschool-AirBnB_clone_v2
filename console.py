@@ -115,14 +115,23 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+        from minis import format_params
+        from datetime import datetime
+        import uuid
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        else:
+            params = format_params(args)
+            params['created_at'] = datetime.now().isoformat()
+            params['updated_at'] = datetime.now().isoformat()
+            params['id'] = str(uuid.uuid4())
+        if params['__class__'] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+        new_instance = HBNBCommand.classes[params['__class__']](**params)
+        print("test1")
+        storage.new(new_instance)
         print(new_instance.id)
         storage.save()
 
