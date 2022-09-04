@@ -2,7 +2,7 @@
 """ Console Module """
 import cmd
 import sys
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.__init__ import storage
 from models.user import User
 from models.place import Place
@@ -123,8 +123,8 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             params = format_params(args)
-            params['created_at'] = datetime.now().isoformat()
-            params['updated_at'] = datetime.now().isoformat()
+            params['created_at'] = datetime.utcnow().isoformat()
+            params['updated_at'] = datetime.utcnow().isoformat()
             params['id'] = str(uuid.uuid4())
         if params['__class__'] not in HBNBCommand.classes:
             print("** class doesn't exist **")
@@ -214,11 +214,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
