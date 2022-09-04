@@ -30,8 +30,10 @@ HBNB_MYSQL_DB = os.getenv('HBNB_MYSQL_DB')
 
 
 classes = {
-            'State': State, 'City': City
-          }
+               'BaseModel': BaseModel, 'User': User, 'Place': Place,
+               'State': State, 'City': City, 'Amenity': Amenity,
+               'Review': Review
+              }
 
 
 class DBstorage:
