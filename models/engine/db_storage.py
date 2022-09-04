@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Module handling database storage"""
+import os
+from typing_extensions import Self
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
@@ -11,12 +13,20 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
-# Update these to environmental variables!!!
-HBNB_ENV = 'dev'
-HBNB_MYSQL_USER = 'hbnb_dev'
-HBNB_MYSQL_PWD = 'hbnb_dev_pwd'
-HBNB_MYSQL_HOST = 'localhost'
-HBNB_MYSQL_DB = 'hbnb_dev_db'
+
+# Set these internally for testing and development
+# HBNB_ENV = 'dev'
+# HBNB_MYSQL_USER = 'hbnb_dev'
+# HBNB_MYSQL_PWD = 'hbnb_dev_pwd'
+# HBNB_MYSQL_HOST = 'localhost'
+# HBNB_MYSQL_DB = 'hbnb_dev_db'
+
+# Set these with environmental variables for project requirements
+HBNB_ENV = os.getenv('HBNB_ENV')
+HBNB_MYSQL_USER = os.getenv('HBNB_MYSQL_USER')
+HBNB_MYSQL_PWD = os.getenv('HBNB_MYSQL_PWD')
+HBNB_MYSQL_HOST = os.getenv('HBNB_MYSQL_HOST')
+HBNB_MYSQL_DB = os.getenv('HBNB_MYSQL_DB')
 
 
 classes = {
@@ -54,6 +64,9 @@ class DBstorage:
     def save(self):
         self.__session.commit()
 
+    def delete(self, obj):
+        """delete object from current session"""
+        self.__session.delete(obj)
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
@@ -64,14 +77,8 @@ class DBstorage:
                 for obj in objs:
                     results[f"{k}.{obj.id}"] = obj
         else:
+            print(type(self.__session))
             objs = self.__session.query(cls).all()
             for obj in objs:
                 results[f"{k}.{obj.id}"] = obj
         return results
-
-        # else:
-        #     class_dict = {}
-        #     for k, v in FileStorage.__objects.items():
-        #         if v.__class__ == cls:
-        #             class_dict.update({k:v})
-        #     return class_dict
