@@ -73,6 +73,7 @@ class DBStorage:
 
 
     def save(self):
+        """Save to database"""
         self.__session.commit()
 
     def delete(self, obj):
