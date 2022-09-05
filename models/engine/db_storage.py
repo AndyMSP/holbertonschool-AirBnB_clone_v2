@@ -22,16 +22,11 @@ from models.review import Review
 # HBNB_MYSQL_DB = 'hbnb_dev_db'
 
 # Set these with environmental variables for project requirements
-# HBNB_ENV = os.getenv('HBNB_ENV')
-# HBNB_MYSQL_USER = os.getenv('HBNB_MYSQL_USER')
-# HBNB_MYSQL_PWD = os.getenv('HBNB_MYSQL_PWD')
-# HBNB_MYSQL_HOST = os.getenv('HBNB_MYSQL_HOST')
-# HBNB_MYSQL_DB = os.getenv('HBNB_MYSQL_DB')
-
-os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
-os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
-os.environ['HBNB_MYSQL_HOST'] = 'localhost'
-os.environ['HBNB_MYSQL_DB'] = 'hbnb_dev_db'
+HBNB_ENV = os.getenv('HBNB_ENV')
+HBNB_MYSQL_USER = os.getenv('HBNB_MYSQL_USER')
+HBNB_MYSQL_PWD = os.getenv('HBNB_MYSQL_PWD')
+HBNB_MYSQL_HOST = os.getenv('HBNB_MYSQL_HOST')
+HBNB_MYSQL_DB = os.getenv('HBNB_MYSQL_DB')
 
 
 classes = {
@@ -45,44 +40,19 @@ class DBStorage:
     __engine = None
     __session = None
 
-    # def __init__(self):
-    #     """function to run during DBstorage instance creation"""
-    #     conn = f"mysql+mysqldb://{HBNB_MYSQL_USER}:{HBNB_MYSQL_PWD}@\{HBNB_MYSQL_HOST}/{HBNB_MYSQL_DB}"
-    #     self.__engine = create_engine(conn, pool_pre_ping=True, echo=False)
-    #     if HBNB_ENV == 'test':
-    #         Base.metadata.drop_all(self.__engine)
-
     def __init__(self):
-        """Engine"""
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            os.getenv('HBNB_MYSQL_USER'),
-            os.getenv('HBNB_MYSQL_PWD'),
-            os.getenv('HBNB_MYSQL_HOST'),
-            os.getenv('HBNB_MYSQL_DB')),
-            pool_pre_ping=True)
-        if os.getenv('HBNB_ENV') == 'test':
+        """function to run during DBstorage instance creation"""
+        conn = f"mysql+mysqldb://{HBNB_MYSQL_USER}:{HBNB_MYSQL_PWD}@\{HBNB_MYSQL_HOST}/{HBNB_MYSQL_DB}"
+        self.__engine = create_engine(conn, pool_pre_ping=True, echo=False)
+        if HBNB_ENV == 'test':
             Base.metadata.drop_all(self.__engine)
 
 
-    # def reload(self):
-    #     """Bring database into application as objects"""
-    #     Base.metadata.create_all(self.__engine)
-    #     session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-    #     session = scoped_session(session_factory)
-    #     self.__session = session()
-
-    # def reload(self):
-    #     """Loads information from Database and starts Session"""
-    #     Base.metadata.create_all(self.__engine)
-    #     sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-    #     session = scoped_session(sess_factory)
-    #     self.__session = session()
-
     def reload(self):
-        """Loads information from Database and starts Session"""
+        """Bring database into application as objects"""
         Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        session = scoped_session(sess_factory)
+        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session = scoped_session(session_factory)
         self.__session = session()
 
 
@@ -97,38 +67,19 @@ class DBStorage:
 
     def delete(self, obj):
         """delete object from current session"""
-        if obj is not None:
-            self.__session.delete(obj)
-
-    # def all(self, cls=None):
-    #     """Returns a dictionary of models currently in storage"""
-    #     results = {}
-    #     if cls is None:
-    #         print('All')
-    #         for k, v in classes.items():
-    #             objs = self.__session.query(v).all()
-    #             for obj in objs:
-    #                 results[f"{k}.{obj.id}"] = obj
-    #     else:
-    #         print('Some')
-    #         objs = self.__session.query(cls).all()
-    #         for obj in objs:
-    #             results[f"{k}.{obj.id}"] = obj
-    #     return results
+        self.__session.delete(obj)
 
     def all(self, cls=None):
-        """Returns dictionary"""
-        table_dict = {}
-        classes = {
-            'State': State,
-            'City': City}
+        """Returns a dictionary of models currently in storage"""
+        results = {}
         if cls is None:
-            for c in classes:
-                result = self.__session.query(classes[c]).all()
-                for obj in result:
-                    table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
+            for k, v in classes.items():
+                objs = self.__session.query(v).all()
+                for obj in objs:
+                    results[f"{k}.{obj.id}"] = obj
         else:
-            result = self.__session.query(classes[cls]).all()
-        for obj in result:
-            table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
-        return table_dict
+            objs = self.__session.query(cls).all()
+            for obj in objs:
+                results[f"{k}.{obj.id}"] = obj
+        return results
+
