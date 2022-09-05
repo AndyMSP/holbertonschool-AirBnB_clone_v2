@@ -86,17 +86,35 @@ class DBStorage:
         if obj is not None:
             self.__session.delete(obj)
 
+    # def all(self, cls=None):
+    #     """Returns a dictionary of models currently in storage"""
+    #     results = {}
+    #     if cls is None:
+    #         for k, v in classes.items():
+    #             objs = self.__session.query(v).all()
+    #             for obj in objs:
+    #                 results[f"{k}.{obj.id}"] = obj
+    #     else:
+    #         objs = self.__session.query(cls).all()
+    #         for obj in objs:
+    #             results[f"{k}.{obj.id}"] = obj
+    #     return results
+
+
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
-        results = {}
+        """Returns dictionary"""
+        table_dict = {}
+        classes = {
+            'State': State,
+            'City': City}
         if cls is None:
-            for k, v in classes.items():
-                objs = self.__session.query(v).all()
-                for obj in objs:
-                    results[f"{k}.{obj.id}"] = obj
+            for c in classes:
+                result = self.__session.query(classes[c]).all()
+                for obj in result:
+                    table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
         else:
-            objs = self.__session.query(cls).all()
-            for obj in objs:
-                results[f"{k}.{obj.id}"] = obj
-        return results
+            result = self.__session.query(classes[cls]).all()
+        for obj in result:
+            table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
+        return table_dict
 
