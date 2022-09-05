@@ -77,7 +77,6 @@ class DBStorage:
                 for obj in objs:
                     results[f"{k}.{obj.id}"] = obj
         else:
-            print(type(self.__session))
             objs = self.__session.query(cls).all()
             for obj in objs:
                 results[f"{k}.{obj.id}"] = obj
