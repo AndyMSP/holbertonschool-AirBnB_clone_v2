@@ -5,7 +5,7 @@ from typing_extensions import Self
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
-# from models.base_model import BaseModel
+from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -25,11 +25,11 @@ from curses import echo
 # HBNB_MYSQL_DB = 'hbnb_dev_db'
 
 # Set these with environmental variables for project requirements
-# HBNB_ENV = os.getenv('HBNB_ENV')
-# HBNB_MYSQL_USER = os.getenv('HBNB_MYSQL_USER')
-# HBNB_MYSQL_PWD = os.getenv('HBNB_MYSQL_PWD')
-# HBNB_MYSQL_HOST = os.getenv('HBNB_MYSQL_HOST')
-# HBNB_MYSQL_DB = os.getenv('HBNB_MYSQL_DB')
+HBNB_ENV = os.getenv('HBNB_ENV')
+HBNB_MYSQL_USER = os.getenv('HBNB_MYSQL_USER')
+HBNB_MYSQL_PWD = os.getenv('HBNB_MYSQL_PWD')
+HBNB_MYSQL_HOST = os.getenv('HBNB_MYSQL_HOST')
+HBNB_MYSQL_DB = os.getenv('HBNB_MYSQL_DB')
 
 
 classes = {
@@ -51,11 +51,19 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
 
+    # def reload(self):
+    #     """Bring database into application as objects"""
+    #     Base.metadata.create_all(self.__engine)
+    #     session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+    #     session = scoped_session(session_factory)
+    #     self.__session = session()
+
+
     def reload(self):
-        """Bring database into application as objects"""
+        """Loads information from Database and starts Session"""
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        session = scoped_session(session_factory)
+        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session = scoped_session(sess_factory)
         self.__session = session()
 
 
