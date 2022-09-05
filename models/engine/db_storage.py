@@ -30,7 +30,8 @@ HBNB_MYSQL_DB = 'hbnb_dev_db'
 classes = {
             'State': State,
             'City': City,
-            'User': User
+            'User': User,
+            'Place': Place
           }
 
 
