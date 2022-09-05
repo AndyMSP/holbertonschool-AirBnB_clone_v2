@@ -5,7 +5,7 @@ from typing_extensions import Self
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
-from models.base_model import BaseModel
+# from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -18,11 +18,11 @@ from curses import echo
 
 
 # Set these internally for testing and development
-HBNB_ENV = 'dev'
-HBNB_MYSQL_USER = 'hbnb_dev'
-HBNB_MYSQL_PWD = 'hbnb_dev_pwd'
-HBNB_MYSQL_HOST = 'localhost'
-HBNB_MYSQL_DB = 'hbnb_dev_db'
+# HBNB_ENV = 'dev'
+# HBNB_MYSQL_USER = 'hbnb_dev'
+# HBNB_MYSQL_PWD = 'hbnb_dev_pwd'
+# HBNB_MYSQL_HOST = 'localhost'
+# HBNB_MYSQL_DB = 'hbnb_dev_db'
 
 # Set these with environmental variables for project requirements
 # HBNB_ENV = os.getenv('HBNB_ENV')
