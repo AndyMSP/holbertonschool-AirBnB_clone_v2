@@ -63,8 +63,8 @@ class DBStorage:
         """Bring database into application as objects"""
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(session_factory)
-        self.__session = Session()
+        session = scoped_session(session_factory)
+        self.__session = session()
 
     # def reload(self):
     #     """Loads information from Database and starts Session"""
