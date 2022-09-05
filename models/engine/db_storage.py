@@ -1,20 +1,31 @@
 #!/usr/bin/python3
 """Module handling database storage"""
+# import os
+# from typing_extensions import Self
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker, scoped_session
+# from models.base_model import Base
+# from models.base_model import BaseModel
+# from models.user import User
+# from models.place import Place
+# from models.state import State
+# from models.city import City
+# from models.amenity import Amenity
+# from models.review import Review
+
+from curses import echo
 import os
-from typing_extensions import Self
-from sqlalchemy import create_engine
+import sqlalchemy as db
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
-from models.base_model import BaseModel
-from models.user import User
-from models.place import Place
-from models.state import State
 from models.city import City
+from models.state import State
 from models.amenity import Amenity
+from models.place import Place
+from models.user import User
 from models.review import Review
 
-import sqlalchemy as db
-from curses import echo
+
 
 
 # Set these internally for testing and development
