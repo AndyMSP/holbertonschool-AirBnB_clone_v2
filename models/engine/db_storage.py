@@ -1,17 +1,19 @@
 #!/usr/bin/python3
 """Module handling database storage"""
-# import os
-# from typing_extensions import Self
-# from sqlalchemy import create_engine
-# from sqlalchemy.orm import sessionmaker, scoped_session
-# from models.base_model import Base
-# from models.base_model import BaseModel
-# from models.user import User
-# from models.place import Place
-# from models.state import State
-# from models.city import City
-# from models.amenity import Amenity
-# from models.review import Review
+import os
+from typing_extensions import Self
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
+from models.base_model import Base
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+
+import sqlalchemy as db
 
 
 # Set these internally for testing and development
@@ -34,7 +36,7 @@
 #           }
 
 
-# class DBStorage:
+class DBStorage:
 #     """Class defining database storage object"""
 
 #     __engine = None
@@ -83,26 +85,26 @@
 #                 results[f"{k}.{obj.id}"] = obj
 #         return results
 
-from curses import echo
-import os
-import sqlalchemy as db
-from sqlalchemy.orm import sessionmaker, scoped_session
-from models.base_model import Base
-from models.city import City
-from models.state import State
-from models.amenity import Amenity
-from models.place import Place
-from models.user import User
-from models.review import Review
+# from curses import echo
+# import os
+# import sqlalchemy as db
+# from sqlalchemy.orm import sessionmaker, scoped_session
+# from models.base_model import Base
+# from models.city import City
+# from models.state import State
+# from models.amenity import Amenity
+# from models.place import Place
+# from models.user import User
+# from models.review import Review
 
-os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
-os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
-os.environ['HBNB_MYSQL_HOST'] = 'localhost'
-os.environ['HBNB_MYSQL_DB'] = 'hbnb_dev_db'
+# os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
+# os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
+# os.environ['HBNB_MYSQL_HOST'] = 'localhost'
+# os.environ['HBNB_MYSQL_DB'] = 'hbnb_dev_db'
 
 
-class DBStorage:
-    """Class for Database Storage"""
+# class DBStorage:
+    # """Class for Database Storage"""
     __engine = None
     __session = None
 
