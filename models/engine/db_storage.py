@@ -43,9 +43,9 @@ HBNB_MYSQL_HOST = os.getenv('HBNB_MYSQL_HOST')
 HBNB_MYSQL_DB = os.getenv('HBNB_MYSQL_DB')
 
 
-classes = {
-            'State': State, 'City': City
-          }
+# classes = {
+#             'State': State, 'City': City
+#           }
 
 
 class DBStorage:
@@ -83,11 +83,6 @@ class DBStorage:
         """delete object from current session"""
         self.__session.delete(obj)
 
-
-    # def delete(self, obj=None):
-    #     """Deletes from table"""
-    #     if obj is not None:
-    #         self.__session.delete(obj)
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
