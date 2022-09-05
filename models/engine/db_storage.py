@@ -79,20 +79,20 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
 
-    # def reload(self):
-    #     """Bring database into application as objects"""
-    #     Base.metadata.create_all(self.__engine)
-    #     session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-    #     session = scoped_session(session_factory)
-    #     self.__session = session()
-
-
     def reload(self):
-        """Loads information from Database and starts Session"""
+        """Bring database into application as objects"""
         Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        session = scoped_session(sess_factory)
+        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session = scoped_session(session_factory)
         self.__session = session()
+
+
+    # def reload(self):
+    #     """Loads information from Database and starts Session"""
+    #     Base.metadata.create_all(self.__engine)
+    #     sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+    #     session = scoped_session(sess_factory)
+    #     self.__session = session()
 
 
     def new(self, obj):
@@ -104,15 +104,15 @@ class DBStorage:
         """Save to database"""
         self.__session.commit()
 
-    def delete(self, obj):
-        """delete object from current session"""
-        self.__session.delete(obj)
+    # def delete(self, obj):
+    #     """delete object from current session"""
+    #     self.__session.delete(obj)
 
 
-    # def delete(self, obj=None):
-    #     """Deletes from table"""
-    #     if obj is not None:
-    #         self.__session.delete(obj)
+    def delete(self, obj=None):
+        """Deletes from table"""
+        if obj is not None:
+            self.__session.delete(obj)
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
