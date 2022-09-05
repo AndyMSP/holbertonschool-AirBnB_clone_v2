@@ -49,7 +49,7 @@ class DBStorage:
 
     def __init__(self):
         """Engine"""
-        self.__engine = db.create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
             os.getenv('HBNB_MYSQL_USER'),
             os.getenv('HBNB_MYSQL_PWD'),
             os.getenv('HBNB_MYSQL_HOST'),
@@ -79,18 +79,35 @@ class DBStorage:
         """delete object from current session"""
         self.__session.delete(obj)
 
+    # def all(self, cls=None):
+    #     """Returns a dictionary of models currently in storage"""
+    #     results = {}
+    #     if cls is None:
+    #         print('All')
+    #         for k, v in classes.items():
+    #             objs = self.__session.query(v).all()
+    #             for obj in objs:
+    #                 results[f"{k}.{obj.id}"] = obj
+    #     else:
+    #         print('Some')
+    #         objs = self.__session.query(cls).all()
+    #         for obj in objs:
+    #             results[f"{k}.{obj.id}"] = obj
+    #     return results
+
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
-        results = {}
+        """Returns dictionary"""
+        table_dict = {}
+        classes = {
+            'State': State,
+            'City': City}
         if cls is None:
-            print('All')
-            for k, v in classes.items():
-                objs = self.__session.query(v).all()
-                for obj in objs:
-                    results[f"{k}.{obj.id}"] = obj
+            for c in classes:
+                result = self.__session.query(classes[c]).all()
+                for obj in result:
+                    table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
         else:
-            print('Some')
-            objs = self.__session.query(cls).all()
-            for obj in objs:
-                results[f"{k}.{obj.id}"] = obj
-        return results
+            result = self.__session.query(classes[cls]).all()
+        for obj in result:
+            table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
+        return table_dict
