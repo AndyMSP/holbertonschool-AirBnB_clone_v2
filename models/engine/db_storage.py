@@ -59,19 +59,19 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
 
-    # def reload(self):
-    #     """Bring database into application as objects"""
-    #     Base.metadata.create_all(self.__engine)
-    #     session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-    #     Session = scoped_session(session_factory)
-    #     self.__session = Session()
-
     def reload(self):
-        """Loads information from Database and starts Session"""
+        """Bring database into application as objects"""
         Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        session = scoped_session(sess_factory)
-        self.__session = session()
+        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        self.__session = Session()
+
+    # def reload(self):
+    #     """Loads information from Database and starts Session"""
+    #     Base.metadata.create_all(self.__engine)
+    #     sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+    #     session = scoped_session(sess_factory)
+    #     self.__session = session()
 
 
     def new(self, obj):
