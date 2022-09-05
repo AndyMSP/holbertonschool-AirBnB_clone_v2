@@ -25,7 +25,7 @@ from curses import echo
 # HBNB_MYSQL_DB = 'hbnb_dev_db'
 
 # Set these with environmental variables for project requirements
-HBNB_ENV = os.getenv('HBNB_ENV')
+# HBNB_ENV = os.getenv('HBNB_ENV')
 HBNB_MYSQL_USER = os.getenv('HBNB_MYSQL_USER')
 HBNB_MYSQL_PWD = os.getenv('HBNB_MYSQL_PWD')
 HBNB_MYSQL_HOST = os.getenv('HBNB_MYSQL_HOST')
