@@ -25,7 +25,7 @@ from curses import echo
 # HBNB_MYSQL_DB = 'hbnb_dev_db'
 
 # Set these with environmental variables for project requirements
-# HBNB_ENV = os.getenv('HBNB_ENV')
+HBNB_ENV = os.getenv('HBNB_ENV')
 HBNB_MYSQL_USER = os.getenv('HBNB_MYSQL_USER')
 HBNB_MYSQL_PWD = os.getenv('HBNB_MYSQL_PWD')
 HBNB_MYSQL_HOST = os.getenv('HBNB_MYSQL_HOST')
@@ -76,9 +76,15 @@ class DBStorage:
         """Save to database"""
         self.__session.commit()
 
-    def delete(self, obj):
-        """delete object from current session"""
-        self.__session.delete(obj)
+    # def delete(self, obj):
+    #     """delete object from current session"""
+    #     self.__session.delete(obj)
+
+
+    def delete(self, obj=None):
+        """Deletes from table"""
+        if obj is not None:
+            self.__session.delete(obj)
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
