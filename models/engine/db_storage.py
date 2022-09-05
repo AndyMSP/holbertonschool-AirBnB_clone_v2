@@ -12,21 +12,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
-# from curses import echo
-# import os
-# import sqlalchemy as db
-# from sqlalchemy.orm import sessionmaker, scoped_session
-# from models.base_model import Base
-# from models.city import City
-# from models.state import State
-# from models.amenity import Amenity
-# from models.place import Place
-# from models.user import User
-# from models.review import Review
-
-
-
-
 # Set these internally for testing and development
 # HBNB_ENV = 'dev'
 # HBNB_MYSQL_USER = 'hbnb_dev'
