@@ -34,30 +34,3 @@ class Place(BaseModel, Base):
                            cascade='all, delete, delete-orphan')
     amenities = relationship("Amenity", secondary='place_amenity',
                              viewonly=False)
-    if os.getenv("HBNB_TYPE_STORAGE") != "db":
-        @property
-        def reviews_att(self):
-            """Defines review attribute for FileStorage"""
-            from models import storage
-            reviews_dict = storage.all('Review')
-            reviews_list = []
-            for key, value in reviews_dict.items():
-                if value.place_id == self.id:
-                    reviews_list.append(value)
-            return reviews_list
-
-        @property
-        def amenities(self):
-            from models import storage
-            amenities_dict = storage.all('Amenity')
-            amenities_list = []
-            for key, value in amenities_dict.items():
-                if value.amenity_id == self.id:
-                    amenities_list.append(value)
-            return amenities_list
-
-        @amenities.setter
-        def amenities_att(self, obj):
-            if type(obj).__name__ != 'Amenity':
-                return
-            self.amenity_ids.append(obj['id'])
