@@ -2,8 +2,7 @@
 """ Console Module """
 import cmd
 import sys
-import os
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.__init__ import storage
 from models.user import User
 from models.place import Place
@@ -20,16 +19,16 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-        'BaseModel': BaseModel, 'User': User, 'Place': Place,
-        'State': State, 'City': City, 'Amenity': Amenity,
-        'Review': Review
-    }
+               'BaseModel': BaseModel, 'User': User, 'Place': Place,
+               'State': State, 'City': City, 'Amenity': Amenity,
+               'Review': Review
+              }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-        'number_rooms': int, 'number_bathrooms': int,
-        'max_guest': int, 'price_by_night': int,
-        'latitude': float, 'longitude': float
-    }
+             'number_rooms': int, 'number_bathrooms': int,
+             'max_guest': int, 'price_by_night': int,
+             'latitude': float, 'longitude': float
+            }
 
     def preloop(self):
         """Prints if isatty is false"""
@@ -38,6 +37,7 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
+
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
@@ -115,27 +115,23 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        arg_list = args.split(" ")
+        from minis import format_params
+        from datetime import datetime
+        import uuid
         if not args:
             print("** class name missing **")
             return
-        elif arg_list[0] not in HBNBCommand.classes:
+        else:
+            params = format_params(args)
+            params['created_at'] = datetime.utcnow().isoformat()
+            params['updated_at'] = datetime.utcnow().isoformat()
+            params['id'] = str(uuid.uuid4())
+        if params['__class__'] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        kwargs_dict = {}
-        if len(arg_list) > 0:
-            for i in range(1, len(arg_list)):
-                if "=" not in arg_list[i]:
-                    continue
-                k, v = tuple(arg_list[i].split("="))
-                if v[0] == '"':
-                    v = v.replace("_", " ")
-                    v = v[1:-1]
-                kwargs_dict[k] = v
-        new_inst = HBNBCommand.classes[arg_list[0]](**kwargs_dict)
-        new_inst.save()
-        print(new_inst.id)
-
+        new_instance = HBNBCommand.classes[params['__class__']](**params)
+        storage.new(new_instance)
+        print(new_instance.id)
         storage.save()
 
     def help_create(self):
@@ -198,8 +194,8 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
 
-        target = storage.all()[key]
         try:
+            target = storage.all()[key]
             storage.delete(target)
             storage.save()
         except KeyError:
@@ -219,7 +215,7 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage.all(args).items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
@@ -236,7 +232,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage._FileStorage__objects.items():
+        for k, v in storage.all():
             if args == k.split('.')[0]:
                 count += 1
         print(count)
@@ -332,7 +328,6 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
