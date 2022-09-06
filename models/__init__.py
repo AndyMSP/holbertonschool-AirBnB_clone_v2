@@ -4,10 +4,10 @@ import os
 from models.engine.file_storage import FileStorage
 
 # Set these internally for testing and development
-# HBNB_TYPE_STORAGE = 'db'
+HBNB_TYPE_STORAGE = 'db'
 
 # Set these with environmental variables for project requirements
-HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
+# HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
 
 if HBNB_TYPE_STORAGE == 'db':
     from models.engine.db_storage import DBStorage
