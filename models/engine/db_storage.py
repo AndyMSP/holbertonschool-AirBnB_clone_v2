@@ -33,7 +33,8 @@ classes = {
             'User': User,
             'Place': Place,
             'Review': Review,
-            'Amenity': Amenity
+            'Amenity': Amenity,
+            'place_amenity': 'place_amenity'
           }
 
 
