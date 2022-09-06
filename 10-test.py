@@ -6,31 +6,34 @@ from models.user import User
 from models.place import Place
 from models.amenity import Amenity
 
-s = State(name="California")
-s.save()
-c = City(state_id=s.id, name="San Francisco")
-c.save()
+all_places = {}
+try:
+    all_places = storage.all('Place')
+except:
+    all_places = storage.all(Place)
 
-u = User(email="a@a.com", password="pwd")
-u.save()
+if len(all_places) == 0:
+    try:
+        all_places = storage.all(Place)
+    except:
+        all_places = storage.all("Place")
+    
 
-p1 = Place(user_id=u.id, city_id=c.id, name="House 1")
-p1.save()
-p2 = Place(user_id=u.id, city_id=c.id, name="House 2")
-p2.save()
+places_by_name = {}
 
-a1 = Amenity(name="Wifi")
-a1.save()
-a2 = Amenity(name="Cable")
-a2.save()
-a3 = Amenity(name="Eth")
-a3.save()
+for p_id in all_places.keys():
+    place = all_places[p_id]
+    places_by_name[place.name] = place
 
-p1.amenities.append(a1)
-p1.amenities.append(a2)
 
-p2.amenities.append(a1)
-p2.amenities.append(a2)
-p2.amenities.append(a3)
-
-storage.save()
+for p_name in sorted(places_by_name.keys()):
+    place = places_by_name[p_name]
+    print("place: {}".format(place.name))
+    if place.amenities is None:
+        continue
+    amenities_names = []
+    for amenity in place.amenities:
+        amenities_names.append(amenity.name)
+    
+    for a_name in sorted(amenities_names):
+        print("\tamenity: {}".format(a_name))

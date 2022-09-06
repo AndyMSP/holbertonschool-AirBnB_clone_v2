@@ -84,5 +84,5 @@ class DBStorage:
         else:
             objs = self.__session.query(cls).all()
             for obj in objs:
-                results[f"{k}.{obj.id}"] = obj
+                results[f"{cls}.{obj.id}"] = obj
         return results
