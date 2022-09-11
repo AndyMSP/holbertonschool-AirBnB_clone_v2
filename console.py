@@ -163,7 +163,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage.all[key])
         except KeyError:
             print("** no instance found **")
 
@@ -322,7 +322,7 @@ class HBNBCommand(cmd.Cmd):
                 # update dictionary with name, value pair
                 new_dict.__dict__.update({att_name: att_val})
 
-        new_dict.save()  # save updates to file
+        new_dict.save()  # save updates
 
     def help_update(self):
         """ Help information for the update class """

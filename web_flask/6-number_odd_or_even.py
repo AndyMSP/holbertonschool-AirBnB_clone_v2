@@ -45,7 +45,7 @@ def number_page(n):
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def number_type(n):
     """Function to call for odd or even page"""
-    return (render_template('6-number_odd_or_even.html', number=n))
+    return (render_template('6-number_odd_or_even.html', number=n, trim_blocks=True, lstrip_blocks=True))
 
 
 if (__name__ == '__main__'):

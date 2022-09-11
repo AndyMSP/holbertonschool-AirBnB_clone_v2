@@ -86,3 +86,8 @@ class DBStorage:
             for obj in objs:
                 results[f"{cls}.{obj.id}"] = obj
         return results
+
+
+    def close(self):
+        """calls restore reload the session"""
+        self.reload()
