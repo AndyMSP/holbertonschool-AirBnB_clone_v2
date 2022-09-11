@@ -21,7 +21,7 @@ def hbnb():
 @app.route("/c/<text>")
 def c_text(text):
     """Function to run when '/c/<text>' is accessed"""
-    return (f"C {text.replace('_', ' ')}")
+    return ("C {}".format(text.replace('_', ' ')))
 
 
 if (__name__ == '__main__'):
