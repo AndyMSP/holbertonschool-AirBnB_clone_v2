@@ -3,8 +3,6 @@
 import json
 
 
-
-
 class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
     __file_path = 'file.json'
@@ -18,7 +16,7 @@ class FileStorage:
             class_dict = {}
             for k, v in FileStorage.__objects.items():
                 if v.__class__ == cls:
-                    class_dict.update({k:v})
+                    class_dict.update({k: v})
             return class_dict
 
     def new(self, obj):
@@ -63,10 +61,10 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
 
-        
     def close(self):
         """deserializes JSON file to objects"""
+        self.reload()

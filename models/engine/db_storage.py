@@ -45,24 +45,26 @@ class DBStorage:
 
     def __init__(self):
         """function to run during DBstorage instance creation"""
-        conn = f"mysql+mysqldb://{HBNB_MYSQL_USER}:{HBNB_MYSQL_PWD}@\{HBNB_MYSQL_HOST}/{HBNB_MYSQL_DB}"
+        conn = "mysql+mysqldb://{}:{}@{}/{}".format(
+            HBNB_MYSQL_USER,
+            HBNB_MYSQL_PWD,
+            HBNB_MYSQL_HOST,
+            HBNB_MYSQL_DB
+        )
         self.__engine = create_engine(conn, pool_pre_ping=True, echo=False)
         if HBNB_ENV == 'test':
             Base.metadata.drop_all(self.__engine)
 
-
     def reload(self):
         """Bring database into application as objects"""
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(session_factory)
+        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sess_factory)
         self.__session = Session()
-
 
     def new(self, obj):
         """Add object to current session"""
         self.__session.add(obj)
-
 
     def save(self):
         """Save to database"""
@@ -71,7 +73,6 @@ class DBStorage:
     def delete(self, obj):
         """delete object from current session"""
         self.__session.delete(obj)
-
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
@@ -86,7 +87,6 @@ class DBStorage:
             for obj in objs:
                 results[f"{cls}.{obj.id}"] = obj
         return results
-
 
     def close(self):
         """calls restore reload the session"""
