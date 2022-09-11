@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
-def home():
+def hello_hbnb():
     """Function to run when '/' is accessed"""
     return ("Hello HBNB!")
 
