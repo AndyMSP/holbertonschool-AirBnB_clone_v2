@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 """This module instantiates an object of class FileStorage"""
 import os
-from models.engine.file_storage import FileStorage
 
-# Set these internally for testing and development
-HBNB_TYPE_STORAGE = 'file'
+# Comment out for final project
+os.environ['HBNB_ENV'] = 'real'
+os.environ['HBNB_TYPE_STORAGE'] = 'file'
+os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
+os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
+os.environ['HBNB_MYSQL_HOST'] = 'localhost'
+os.environ['HBNB_MYSQL_DB'] = 'hbnb_dev_db'
 
-# Set these with environmental variables for project requirements
-# HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
+HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
 
 if HBNB_TYPE_STORAGE == 'db':
     from models.engine.db_storage import DBStorage

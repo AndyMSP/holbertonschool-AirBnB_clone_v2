@@ -12,14 +12,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
-# Set these internally for testing and development
-# HBNB_ENV = 'dev'
-# HBNB_MYSQL_USER = 'hbnb_dev'
-# HBNB_MYSQL_PWD = 'hbnb_dev_pwd'
-# HBNB_MYSQL_HOST = 'localhost'
-# HBNB_MYSQL_DB = 'hbnb_dev_db'
-
-# Set these with environmental variables for project requirements
+# Set these temporarily in __init__ file for testing and development
 HBNB_ENV = os.getenv('HBNB_ENV')
 HBNB_MYSQL_USER = os.getenv('HBNB_MYSQL_USER')
 HBNB_MYSQL_PWD = os.getenv('HBNB_MYSQL_PWD')
