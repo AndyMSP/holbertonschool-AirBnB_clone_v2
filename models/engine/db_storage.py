@@ -2,7 +2,7 @@
 """Module handling database storage"""
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session, exc
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
 from models.user import User
 from models.place import Place
@@ -82,5 +82,4 @@ class DBStorage:
 
     def close(self):
         """calls restore reload the session"""
-        self.__session.close()
-        self.reload()
+        self.__session.remove()
