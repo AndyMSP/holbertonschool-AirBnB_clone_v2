@@ -65,6 +65,7 @@ class DBStorage:
     def delete(self, obj):
         """delete object from current session"""
         self.__session.delete(obj)
+        self.save()
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
