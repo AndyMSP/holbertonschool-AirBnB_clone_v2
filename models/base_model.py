@@ -10,8 +10,9 @@ HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
 
 if (HBNB_TYPE_STORAGE == 'db'):
     Base = declarative_base()
-class Base:
-    """empty class"""
+else:
+    class Base:
+        """empty class"""
 
 
 class BaseModel:
