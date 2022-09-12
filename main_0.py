@@ -9,7 +9,7 @@ from models.state import State
 
 
 def add_states(number=1):
-    conn = MySQLdb.connect(host="localhost", port=3306, user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3], charset="utf8")
+    conn = MySQLdb.connect(host="localhost", port=3306, user='hbnb_dev', passwd='hbnb_dev_pwd', db='hbnb_dev_db', charset="utf8")
     cur = conn.cursor()
 
     for i in range(number):
