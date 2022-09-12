@@ -82,4 +82,4 @@ class DBStorage:
 
     def close(self):
         """calls restore reload the session"""
-        self.reload()
+        scoped_session.remove(self)
