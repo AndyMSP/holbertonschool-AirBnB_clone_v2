@@ -14,7 +14,6 @@ app = Flask(__name__)
 def hello_hbnb():
     """Function to run when '/cities_by_states' is accessed"""
     states = [state for state in storage.all(State).values()]
-    states.sort(reverse=False, key=lambda state: state.name)
     page = render_template('8-cities_by_states.html', states=states)
     storage.close()
     return(page)
