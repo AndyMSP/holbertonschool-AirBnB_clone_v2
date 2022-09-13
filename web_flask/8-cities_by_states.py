@@ -23,7 +23,7 @@ def states_list():
 def cities_by_statesb():
     """Function to run when '/cities_by_states' is accessed"""
     states = storage.all(State).values()
-    page = render_template('8-cities_by_states.html', states=states, trim_blocks=True, lstrip_blocks=True)
+    page = render_template('8-cities_by_states.html', states=states)
     storage.close()
     return(page)
 
