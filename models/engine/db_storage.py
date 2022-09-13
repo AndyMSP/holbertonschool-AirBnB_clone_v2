@@ -74,11 +74,11 @@ class DBStorage:
             for k, v in classes.items():
                 objs = self.__session.query(v).all()
                 for obj in objs:
-                    results[f"{k}.{obj.id}"] = obj
+                    results["{}.{}".format(k, obj.id)] = obj
         else:
             objs = self.__session.query(cls).all()
             for obj in objs:
-                results[f"{cls}.{obj.id}"] = obj
+                results["{}.{}".format(cls, obj.id)] = obj
         return results
 
     def close(self):
