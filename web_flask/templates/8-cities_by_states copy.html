@@ -8,9 +8,10 @@
         <UL>
             {% for state in states %}
                 <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
-                {% set cities = state.cities %}
+                {% cities = [city for city in state.cities] %}
+                {% cities.sort(reverse=False, key=lambda city: city.name) %}
                 <UL>
-                    {% for city in cities|sort(attribute='name') %}
+                    {% for city in cities %}
                         <LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
                     {% endfor %}
                 </UL>
