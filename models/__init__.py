@@ -4,7 +4,7 @@ import os
 
 # Comment out for final project
 # os.environ['HBNB_ENV'] = 'real'
-# os.environ['HBNB_TYPE_STORAGE'] = 'db'
+# os.environ['HBNB_TYPE_STORAGE'] = 'file'
 # os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
 # os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
 # os.environ['HBNB_MYSQL_HOST'] = 'localhost'
