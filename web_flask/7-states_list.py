@@ -13,6 +13,7 @@ app = Flask(__name__)
 def hello_hbnb():
     """Function to run when '/states_list' is accessed"""
     states = [state for state in storage.all(State).values()]
+    storage.close()
     states.sort(reverse=False, key=lambda state: state.name)
     return (render_template('7-states_list.html', states=states))
 
