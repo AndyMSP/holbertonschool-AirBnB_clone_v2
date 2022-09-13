@@ -13,7 +13,7 @@ app = Flask(__name__)
 @app.route("/cities_by_states", strict_slashes=False)
 def hello_hbnb():
     """Function to run when '/cities_by_states' is accessed"""
-    states = [state for state in storage.all(State).values()]
+    states = storage.all(State).values()
     page = render_template('8-cities_by_states.html', states=states)
     storage.close()
     return(page)
