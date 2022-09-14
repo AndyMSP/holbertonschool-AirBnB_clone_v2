@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 def format_params(input):
     split_input = input.split(' ')
     kwargs_dict = {}
@@ -9,7 +10,6 @@ def format_params(input):
             key, val = item.split('=')
             val = val.replace('_', ' ')
             if '"' in val:
-                val = val.replace('_', ' ')
                 val = val[1:-1]
             kwargs_dict[key] = val
 
