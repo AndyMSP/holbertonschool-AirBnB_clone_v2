@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""A small program"""
 
 
 def format_params(input):
