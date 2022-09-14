@@ -7,6 +7,7 @@ def format_params(input):
     for item in split_input:
         if '=' in item:
             key, val = item.split('=')
+            val = val.replace('_', ' ')
             if '"' in val:
                 val = val.replace('_', ' ')
                 val = val[1:-1]
