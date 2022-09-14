@@ -2,6 +2,7 @@
 
 
 def format_params(input):
+    """function to format parameters"""
     split_input = input.split(' ')
     kwargs_dict = {}
 
