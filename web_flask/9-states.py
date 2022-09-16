@@ -15,6 +15,7 @@ def teardown(self):
     """procedure to run after request"""
     storage.close()
 
+
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """Function to run when '/states_list' is accessed"""
@@ -29,12 +30,24 @@ def cities_by_statesb():
     states = storage.all(State).values()
     return (render_template('8-cities_by_states.html', states=states))
 
-@app.route("/states", strict_slashes=False)
+
+@app.route("/states", strict_slashes=False, defaults={'id': None})
 @app.route("/states/<id>", strict_slashes=False)
-def states_dynamic():
+def states_dynamic(id=id):
     """Function to run when '/states' or 'states/<id>' is accessed"""
-    return redirect('/states_list')
+    states = storage.all(State).values()
+    valid_ids = [state.id for state in states]
+    if id is None:
+        title = 'States'
+        states = states
+    elif id in valid_ids:
+        title = 'State'
+        states = [state for state in states if state.id == id]
+    else:
+        title = 'Not Found!'
+        states = []
+    return render_template('9-states.html', title=title, states=states)
 
 
 if (__name__ == '__main__'):
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=True)
