@@ -15,7 +15,6 @@ def teardown(self):
     """procedure to run after request"""
     storage.close()
 
-@app.route("/states", strict_slashes=False)
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """Function to run when '/states_list' is accessed"""
