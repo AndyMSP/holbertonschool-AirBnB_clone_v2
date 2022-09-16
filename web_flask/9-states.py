@@ -41,8 +41,8 @@ def states_dynamic(id=id):
         title = 'States'
         states = states
     elif id in valid_ids:
-        title = 'State'
         states = [state for state in states if state.id == id]
+        title = 'State : {}'.format(states[0].name)
     else:
         title = 'Not Found!'
         states = []
