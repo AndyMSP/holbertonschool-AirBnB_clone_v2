@@ -40,13 +40,21 @@ def states_dynamic(id=id):
     if id is None:
         title = 'States'
         states = states
+        flag = 'States'
     elif id in valid_ids:
         states = [state for state in states if state.id == id]
         title = 'State : {}'.format(states[0].name)
+        flag = 'State'
     else:
         title = 'Not Found!'
         states = []
-    return render_template('9-states.html', title=title, states=states)
+        flag = 'empty'
+    return render_template(
+        '9-states.html',
+        title=title,
+        states=states,
+        flag=flag
+        )
 
 
 if (__name__ == '__main__'):
