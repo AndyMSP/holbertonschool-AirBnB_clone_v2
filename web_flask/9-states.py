@@ -43,7 +43,7 @@ def states_dynamic(id=id):
         flag = 'States'
     elif id in valid_ids:
         states = [state for state in states if state.id == id]
-        title = 'State : {}'.format(states[0].name)
+        title = 'State: {}'.format(states[0].name)
         flag = 'State'
     else:
         title = 'Not Found!'
