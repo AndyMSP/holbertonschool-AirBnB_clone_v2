@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Starts a basic flask web application"""
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from markupsafe import escape
 
 from models import storage
@@ -29,12 +29,11 @@ def cities_by_statesb():
     states = storage.all(State).values()
     return (render_template('8-cities_by_states.html', states=states))
 
-
+@app.route("/states", strict_slashes=False)
 @app.route("/states/<id>", strict_slashes=False)
 def states_dynamic():
     """Function to run when '/states' or 'states/<id>' is accessed"""
-
-
+    return redirect('/states_list')
 
 
 if (__name__ == '__main__'):
