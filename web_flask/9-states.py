@@ -38,15 +38,13 @@ def states_dynamic(id=id):
     states = storage.all(State).values()
     valid_ids = [state.id for state in states]
     if id is None:
-        title = 'States'
-        states = states
-        flag = 'States'
+        return states_list()
     elif id in valid_ids:
         states = [state for state in states if state.id == id]
         title = 'State: {}'.format(states[0].name)
         flag = 'State'
     else:
-        title = 'Not Found!'
+        title = 'Not found!'
         states = []
         flag = 'empty'
     return render_template(

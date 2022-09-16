@@ -9,20 +9,12 @@
     <H1>{{ title }}</H1>
     {% if flag == 'State' %}
     <H3>Cities:</H3>
-    {% endif %}
     <UL>
-        {% for state in states %}
-        {% if title == 'States' %}
-        <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
-        {% else %}
-        <UL>
-            {% for city in state.cities|sort(attribute='name') %}
-            <LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
-            {% endfor %}
-        </UL>
-        {% endif %}
+        {% for city in states[0].cities|sort(attribute='name') %}
+        <LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
         {% endfor %}
     </UL>
+    {% endif %}
 </BODY>
 
 </HTML>
